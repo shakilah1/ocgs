@@ -1,9 +1,9 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
+import { ProtectedRoute, AuthenticatedRedirect} from "../utils/router"
 
 //components
 import Home from './home/home';
-import Counsellor from './counsellor/counsellor'
 import Login from './login/login'
 import Register from './register/register'
 import User from './user/user'
@@ -11,21 +11,18 @@ import User from './user/user'
 const Routes = () => {
     return (
         <Switch>
-            <Route path="/" exact>
+            <AuthenticatedRedirect path="/" exact>
                 <Home />
-            </Route>
-            <Route path="/users/:id">
+            </AuthenticatedRedirect>
+            <ProtectedRoute path="/user">
                 <User />
-            </Route>
-            {/**<Route path="/counsellors/:id">
-                <Counsellor/>
-      </Route>**/}
-            <Route path="/login">
+            </ProtectedRoute>
+            <AuthenticatedRedirect path="/login">
                 <Login />
-            </Route>
-            <Route path="/register">
+            </AuthenticatedRedirect>
+            <AuthenticatedRedirect path="/register">
                 <Register />
-            </Route>
+            </AuthenticatedRedirect>
         </Switch>
     )
 }
